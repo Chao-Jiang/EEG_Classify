@@ -54,9 +54,9 @@ print('Building model ...')
 activ = 'relu'
 
 model = Sequential()
-model.add(Convolution2D(70, 1, 1, input_shape = (1, 500, 28), activation = activ ))
+model.add(Convolution2D(100, 1, 1, input_shape = (1, 500, 28), activation = activ ))
 model.add(Dropout(0.3))
-model.add(Convolution2D(50, 5, 5, activation = activ))
+model.add(Convolution2D(100, 5, 5, activation = activ))
 model.add(Dropout(0.3))
 model.add(Convolution2D(50, 5, 5, activation = activ))
 model.add(Dropout(0.3))
