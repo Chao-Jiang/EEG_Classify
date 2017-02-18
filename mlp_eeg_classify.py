@@ -39,10 +39,24 @@ x_test = x_test.astype('float32')
 #reshpe  y data to the correct dimensions and convert to float 32
 
 y_train = data['y_train'].reshape(316)
+tmp_train = []
+for i in y_train:
+    if i == 1:
+        tmp_train.append(1)
+    elif i == 0:
+        tmp_train.append(-1)
+y_train = np.array(tmp_train)
 y_train = np_utils.to_categorical(y_train, 2)
 y_train = y_train.astype('float32')
 
 y_test = y_test.reshape(100)
+tmp_test = []
+for i in y_test:
+    if i == 1:
+        tmp_test.append(1)
+    elif i == 0:
+        tmp_test.append(-1)       
+y_test = np.array(tmp_test)
 y_test = np_utils.to_categorical(y_test, 2)
 y_test = y_test.astype('float32')
 
