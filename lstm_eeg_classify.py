@@ -47,6 +47,7 @@ for i in y_train:
     elif i == 0:
         tmp_train.append(-1)
 y_train = np.array(tmp_train)
+y_train = np_utils.to_categorical(y_train, 2)
 y_train = y_train.astype('float32')
 
 y_test = y_test.reshape(100,1)
@@ -55,9 +56,9 @@ for i in y_test:
     if i == 1:
         tmp_test.append(1)
     elif i == 0:
-        tmp_test.append(-1)
-        
+        tmp_test.append(-1)       
 y_test = np.array(tmp_test)
+y_test = np_utils.to_categorical(y_test, 2)
 y_test = y_test.astype('float32')
 
 '''
@@ -66,24 +67,24 @@ Build model
 print('Building Model...')
 #define the model as sequential
 model = Sequential()
-model.add(GRU(10, return_sequences = False, input_shape=(500, 28)))
-#model.add(LSTM(100, return_sequences = True))
-#model.add(LSTM(56))
-model.add(Dense(1, activation = 'sigmoid'))
+model.add(LSTM(10, return_sequences = True, input_shape=(500, 28)))
+model.add(LSTM(10, return_sequences = True))
+model.add(LSTM(5))
+model.add(Dense(2, activation = 'softmax'))
 
 model.summary() 
 
 # Optimizer settings
-optim = RMSprop(lr = 0.001)
+optim = Nadam(lr = 0.001)
 
-model.compile(loss = 'binary_crossentropy', optimizer = optim, metrics = ['accuracy'])
+model.compile(loss = 'categorical_crossentropy', optimizer = optim, metrics = ['accuracy'])
 
 '''
 Fitting the model
 '''
 print('Fitting the Model...')
 
-model.fit(x_train, y_train, nb_epoch=100, batch_size=20)
+model.fit(x_train, y_train, nb_epoch=10, batch_size=20)
 
 print('Calculating the score...')
 score, acc = model.evaluate(x_test, y_test,
