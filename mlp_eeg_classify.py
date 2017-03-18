@@ -7,7 +7,7 @@ Created on Thu Jan 26 17:14:01 2017
 """
 from __future__ import print_function
 from keras.models import Sequential
-from keras.layers import Dense, Dropout, Convolution2D, Flatten, MaxPooling2D
+from keras.layers import Dense, Dropout, Conv2D, Flatten, MaxPooling2D
 from keras.optimizers import SGD, RMSprop, Adam, Nadam
 from keras.utils import np_utils
 import scipy.io
@@ -68,11 +68,11 @@ print('Building model ...')
 activ = 'relu'
 
 model = Sequential()
-model.add(Convolution2D(100, 7, 1, input_shape = (1, 500, 28), activation = activ ))
+model.add(Conv2D(100, (7, 1), input_shape = (1, 500, 28), activation = activ ))
 model.add(Dropout(0.3))
-model.add(Convolution2D(10, 5, 5, activation = activ))
+model.add(Conv2D(10, (5, 5), activation = activ))
 model.add(Dropout(0.3))
-model.add(Convolution2D(5, 1, 1, activation = activ))
+model.add(Conv2D(5, (1, 1), activation = activ))
 model.add(Dropout(0.3))
 model.add(MaxPooling2D(pool_size=(2,2)))
 model.add(Flatten())
@@ -94,7 +94,7 @@ Fitting the model
 '''
 print('Fitting model ...')
 
-model.fit(x_train, y_train, nb_epoch=25, batch_size=10)
+model.fit(x_train, y_train, epochs=10, batch_size=10)
 
 print('Calculating the score...')
 score, acc = model.evaluate(x_test, y_test,
