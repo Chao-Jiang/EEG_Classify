@@ -87,7 +87,7 @@ print('Fitting the Model...')
 
 #tbcallback = TensorBoard(log_dir='./Graph', histogram_freq=0, write_graph=True, write_images=False) 
 
-model.fit(x_train, y_train, epochs=10, batch_size=20""", callbacks = [tbcallback]""")
+model.fit(x_train, y_train, epochs=10, batch_size=20)  
 
 
 print('Calculating the score...')
