@@ -14,6 +14,7 @@ from keras.layers import Dense, Dropout, Activation
 from keras.layers import Embedding
 from keras.layers import SimpleRNN, LSTM, GRU
 from keras.optimizers import SGD, Nadam, Adam, RMSprop
+from keras.callbacks import TensorBoard
 from keras.utils import np_utils
 import scipy.io 
 import numpy as np
@@ -84,7 +85,10 @@ Fitting the model
 '''
 print('Fitting the Model...')
 
-model.fit(x_train, y_train, epochs=10, batch_size=20)
+#tbcallback = TensorBoard(log_dir='./Graph', histogram_freq=0, write_graph=True, write_images=False) 
+
+model.fit(x_train, y_train, epochs=10, batch_size=20""", callbacks = [tbcallback]""")
+
 
 print('Calculating the score...')
 score, acc = model.evaluate(x_test, y_test,
